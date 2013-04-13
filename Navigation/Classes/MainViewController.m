@@ -7,9 +7,19 @@
 //
 
 #import "MainViewController.h"
+#import "CenterViewController.h"
+#import "LeftPanelViewController.h"
+#import "RightPanelViewController.h"
 
-@interface MainViewController ()
+#define CENTER_TAG 1
+#define LEFT_TAG 2
+#define RIGHT_TAG 3
 
+
+@interface MainViewController () <CenterViewControllerDelegate>
+@property (strong, nonatomic) CenterViewController *centerViewController;
+@property (strong, nonatomic) LeftPanelViewController *leftPanelViewController;
+@property (assign, nonatomic) BOOL showingLeftPanel;
 @end
 
 @implementation MainViewController
@@ -61,6 +71,13 @@
 - (void)setupView
 {
     // setup center view
+    self.centerViewController = [[CenterViewController alloc] initWithNibName:@"CenterViewController" bundle:nil];
+    self.centerViewController.view.tag = CENTER_TAG;
+    self.centerViewController.delegate = self;
+    [self.view addSubview:self.centerViewController.view];
+    [self addChildViewController:self.centerViewController];
+    [self.centerViewController didMoveToParentViewController:self];
+    
 }
 
 - (void)showCenterViewWithShadow:(BOOL)value withOffset:(double)offset
@@ -72,8 +89,20 @@
 }
 
 - (UIView *)getLeftView
-{    
-    UIView *view = nil;
+{
+    if (self.leftPanelViewController == nil) {
+        self.leftPanelViewController = [[LeftPanelViewController alloc] initWithNibName:@"LeftPanelViewController" bundle:nil];
+        self.leftPanelViewController.view.tag = LEFT_TAG;
+        self.leftPanelViewController.delegate = self.centerViewController;
+        
+        [self.view addSubview:self.leftPanelViewController.view];
+        [self addChildViewController:self.leftPanelViewController];
+        [self.leftPanelViewController didMoveToParentViewController:self];
+        self.leftPanelViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    }
+    self.showingLeftPanel = YES;
+    [self showCenterViewWithShadow:YES withOffset:-2];
+    UIView *view = self.leftPanelViewController.view;
     return view;
 }
 
