@@ -66,10 +66,32 @@
 
 - (IBAction)btnMovePanelRight:(id)sender
 {
+    UIButton *button = (UIButton *)sender;
+    switch (button.tag) {
+        case 0:
+            [self.delegate movePanelToOriginalPosition];
+            break;
+        case 1:
+            [self.delegate movePanelRight];
+            break;
+        default:
+            break;
+    }
 }
 
 - (IBAction)btnMovePanelLeft:(id)sender
 {
+    UIButton *button = (UIButton *)sender;
+    switch (button.tag) {
+        case 0:
+            [self.delegate movePanelToOriginalPosition];
+            break;
+        case 1:
+            [self.delegate movePanelLeft];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark -
