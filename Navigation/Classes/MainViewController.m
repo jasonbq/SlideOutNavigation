@@ -14,11 +14,10 @@
 
 #define CENTER_TAG 1
 #define LEFT_PANEL_TAG 2
-#define RIGHT_TAG 3
+#define RIGHT_PANEL_TAG 3
 #define CORNER_RADIUS 4
 #define SLIDE_TIMING .25
 #define PANEL_WIDTH 63
-#define RIGHT_PANEL_TAG 3
 
 
 @interface MainViewController () <CenterViewControllerDelegate, UIGestureRecognizerDelegate>
@@ -89,7 +88,6 @@
     
     // add gesture
     [self setupGestures];
-    
 }
 
 - (void)showCenterViewWithShadow:(BOOL)value withOffset:(double)offset
@@ -146,7 +144,7 @@
 {
     if (self.rightPanelViewController == nil) {
         self.rightPanelViewController = [[RightPanelViewController alloc] initWithNibName:@"RightPanelViewController" bundle:nil];
-        self.rightPanelViewController.view.tag = RIGHT_TAG;
+        self.rightPanelViewController.view.tag = RIGHT_PANEL_TAG;
         self.rightPanelViewController.delegate = self.centerViewController;
         
         [self.view addSubview:self.rightPanelViewController.view];

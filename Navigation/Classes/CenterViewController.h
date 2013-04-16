@@ -17,7 +17,6 @@
 
 @required
 - (void)movePanelToOriginalPosition;
-
 @end
 
 @interface CenterViewController : UIViewController <LeftPanelViewControllerDelegate, RightPanelViewControllerDelegate>
